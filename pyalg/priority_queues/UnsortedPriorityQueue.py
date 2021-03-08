@@ -1,4 +1,8 @@
 from Base import PriorityQueueBase
+import sys
+sys.path.append("..")
+from linked_lists.PositionalList import PositionalList
+from error.error import Empty
 
 class UnsortedPriorityQueue(PriorityQueueBase):
 
@@ -16,3 +20,19 @@ class UnsortedPriorityQueue(PriorityQueueBase):
 
     def __init__(self):
         self._data = PositionalList()
+
+    def __len__(self):
+        return len(self._data)
+
+    def add(self, key, value):
+        self._data.add_last(self._Item(key, value))
+
+    def min(self):
+        p = self._find_min()
+        item = p.element()
+        return (item._key, item._value)
+
+    def remove_min(self):
+        p = self._find_min()
+        item = self._data.delete(p)
+        return (item._key, item._value)
